@@ -5,7 +5,6 @@
 
 @{
     var containerDivClass = "container";
-    var dateTimePickerClass = "datetimepicker";
 }
 @{
     ViewData["Title"] = "User Edit";
@@ -47,15 +46,6 @@
 		    <label asp-for="IsActive" class="col-2 col-form-label fw-bold"></label>
 		    <div class="col-10 pt-2">
 			    <input class="form-check-input" asp-for="Record.IsActive" />
-            </div>
-        </div>
-        <div class="row mb-3">
-                <label asp-for="RoleName" class="col-2 col-form-label fw-bold"></label>
-            <div class="col-10">
-	            <select asp-for="Record.RoleId" class="form-select" asp-items="ViewBag.RoleId">
-		            <option value="">-- Select --</option>
-	            </select>
-	            <span asp-validation-for="Record.RoleId" class="text-danger"></span>
             </div>
         </div>
 

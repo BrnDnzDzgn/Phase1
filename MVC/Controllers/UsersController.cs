@@ -1,6 +1,5 @@
 ﻿#nullable disable
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using BLL.Controllers.Bases;
 using BLL.Services;
 using BLL.Models;
@@ -13,21 +12,17 @@ namespace MVC.Controllers
     {
         // Service injections:
         private readonly IUsersService _userService;
-        private readonly IRoleService _roleService;
 
         /* Can be uncommented and used for many to many relationships. ManyToManyRecord may be replaced with the related entiy name in the controller and views. */
         //private readonly IManyToManyRecordService _ManyToManyRecordService;
 
         public UsersController(
-			IUsersService userService
-            , IRoleService roleService
-
-            /* Can be uncommented and used for many to many relationships. ManyToManyRecord may be replaced with the related entiy name in the controller and views. */
-            //, IManyToManyRecordService ManyToManyRecordService
+            IUsersService userService
+        /* Can be uncommented and used for many to many relationships. ManyToManyRecord may be replaced with the related entiy name in the controller and views. */
+        //, IManyToManyRecordService ManyToManyRecordService
         )
         {
             _userService = userService;
-            _roleService = roleService;
 
             /* Can be uncommented and used for many to many relationships. ManyToManyRecord may be replaced with the related entiy name in the controller and views. */
             //_ManyToManyRecordService = ManyToManyRecordService;
@@ -51,9 +46,6 @@ namespace MVC.Controllers
 
         protected void SetViewData()
         {
-            // Related items service logic to set ViewData (Record.Id and Name parameters may need to be changed in the SelectList constructor according to the model):
-            ViewData["RoleId"] = new SelectList(_roleService.Query().ToList(), "Record.Id", "Name");
-            
             /* Can be uncommented and used for many to many relationships. ManyToManyRecord may be replaced with the related entiy name in the controller and views. */
             //ViewBag.ManyToManyRecordIds = new MultiSelectList(_ManyToManyRecordService.Query().ToList(), "Record.Id", "Name");
         }
@@ -132,5 +124,5 @@ namespace MVC.Controllers
             TempData["Message"] = result.Message;
             return RedirectToAction(nameof(Index));
         }
-	}
+    }
 }

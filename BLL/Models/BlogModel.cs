@@ -27,23 +27,11 @@ namespace BLL.Models
         public int BlogId => Record.Id;
 
         [DisplayName("User")]
-        public string UserName => Record.User?.UserName; // Assuming User entity has UserName property
+        public string UserName => Record.User?.UserName;
 
         [DisplayName("Tags")]
-        public ICollection<string> Tags
-        {
-            get
-            {
-                var tags = new List<string>();
-                if (Record.BlogTags != null)
-                {
-                    foreach (var blogTag in Record.BlogTags)
-                    {
-                        tags.Add(blogTag.Tag?.Name); // Assuming BlogTag has a Tag navigation property with a Name field
-                    }
-                }
-                return tags;
-            }
-        }
+        public string Tags => Record.BlogTags == null || !Record.BlogTags.Any()
+            ? string.Empty
+            : string.Join(", ", Record.BlogTags.Select(bt => bt.Tag?.Name).Where(name => !string.IsNullOrEmpty(name)));
     }
 }

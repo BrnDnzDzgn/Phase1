@@ -22,10 +22,14 @@ namespace BLL.Services
         public BlogService(DB db) : base(db)
         {
         }
-
-        // Create a new blog
         public Service Create(Blog blog)
         {
+
+            if (_db.Blogs.Any(u => u.Title.ToLower() == blog.Title.ToLower()))
+            {
+                return Error("A blow with the same title already exists.");
+            }
+
             try
             {
                 _db.Blogs.Add(blog);
@@ -37,14 +41,17 @@ namespace BLL.Services
                 return Error($"Error creating blog: {ex.Message}");
             }
         }
-
-        // Update an existing blog
         public Service Update(Blog blog)
         {
             var existingBlog = _db.Blogs.FirstOrDefault(b => b.Id == blog.Id);
             if (existingBlog == null)
             {
                 return Error("Blog not found.");
+            }
+
+            if (_db.Blogs.Any(u => u.Title.ToLower() == blog.Title.ToLower()))
+            {
+                return Error("A blow with the same title already exists.");
             }
 
             try
@@ -63,8 +70,6 @@ namespace BLL.Services
                 return Error($"Error updating blog: {ex.Message}");
             }
         }
-
-        // Delete a blog by ID
         public Service Delete(int id)
         {
             var blog = _db.Blogs.FirstOrDefault(b => b.Id == id);
@@ -84,8 +89,6 @@ namespace BLL.Services
                 return Error($"Error deleting blog: {ex.Message}");
             }
         }
-
-        // Query to get all blogs or filter as needed
         public IQueryable<BlogModel> Query()
         {
             return _db.Blogs

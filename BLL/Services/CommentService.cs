@@ -21,8 +21,6 @@ namespace BLL.Services
         public CommentService(DB db) : base(db)
         {
         }
-
-        // Create a new comment
         public Service Create(Comment comment)
         {
             try
@@ -36,8 +34,6 @@ namespace BLL.Services
                 return Error($"Error creating comment: {ex.Message}");
             }
         }
-
-        // Update an existing comment
         public Service Update(Comment comment)
         {
             var existingComment = _db.Comments.FirstOrDefault(c => c.Id == comment.Id);
@@ -61,8 +57,6 @@ namespace BLL.Services
                 return Error($"Error updating comment: {ex.Message}");
             }
         }
-
-        // Delete a comment by ID
         public Service Delete(int id)
         {
             var comment = _db.Comments.FirstOrDefault(c => c.Id == id);
@@ -82,8 +76,6 @@ namespace BLL.Services
                 return Error($"Error deleting comment: {ex.Message}");
             }
         }
-
-        // Query to get all comments or filter as needed
         public IQueryable<CommentModel> Query()
         {
             return _db.Comments

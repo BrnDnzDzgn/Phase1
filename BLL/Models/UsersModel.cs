@@ -22,12 +22,6 @@ namespace BLL.Models
         [DisplayName("Is Active")]
         public bool IsActive => Record.IsActive;
 
-        [DisplayName("Role ID")]
-        public int? RoleId => Record.RoleId;
-
-        [DisplayName("Role")]
-        public string RoleName => Record.Role?.Name; // Assuming Role entity has a Name property
-
         [DisplayName("Blogs")]
         public ICollection<BlogModel> Blogs
         {

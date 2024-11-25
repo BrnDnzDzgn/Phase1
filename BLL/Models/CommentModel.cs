@@ -23,12 +23,12 @@ namespace BLL.Models
         public int? BlogId => Record.BlogId;
 
         [DisplayName("Blog Title")]
-        public string BlogTitle => Record.Blog?.Title; // Assuming Blog entity has a Title property
+        public string BlogTitle => Record.Blog?.Title;
 
         [DisplayName("User ID")]
         public int? UserId => Record.UserId;
 
         [DisplayName("Username")]
-        public string UserName => Record.User?.UserName; // Assuming User entity has a UserName property
+        public string UserName => Record.User?.UserName;
     }
 }

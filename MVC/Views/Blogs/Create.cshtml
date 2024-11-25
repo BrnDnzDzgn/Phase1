@@ -27,13 +27,6 @@
 		@Html.AntiForgeryToken()
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row mb-3">
-            <label asp-for="BlogId" class="col-2 col-form-label fw-bold"></label>
-			<div class="col-10">
-			    <input asp-for="Record.Id" class="form-control" />
-				<span asp-validation-for="Record.Id" class="text-danger"></span>
-			</div>
-        </div>
-        <div class="row mb-3">
             <label asp-for="Title" class="col-2 col-form-label fw-bold"></label>
 			<div class="col-10">
 			    <input asp-for="Record.Title" class="form-control" />

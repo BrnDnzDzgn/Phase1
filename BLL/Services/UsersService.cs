@@ -19,10 +19,13 @@ namespace BLL.Services
         public UsersService(DB db) : base(db)
         {
         }
-
-        // Create a new user
         public Service Create(User user)
         {
+            if (_db.Users.Any(u => u.UserName.ToLower() == user.UserName.ToLower()))
+            {
+                return Error("A user with the same username already exists.");
+            }
+
             try
             {
                 _db.Users.Add(user);
@@ -34,14 +37,17 @@ namespace BLL.Services
                 return Error($"Error creating user: {ex.Message}");
             }
         }
-
-        // Update an existing user
         public Service Update(User user)
         {
             var existingUser = _db.Users.FirstOrDefault(u => u.Id == user.Id);
             if (existingUser == null)
             {
                 return Error("User not found.");
+            }
+
+            if (_db.Users.Any(u => u.UserName.ToLower() == user.UserName.ToLower()))
+            {
+                return Error("A user with the same username already exists.");
             }
 
             try
@@ -59,8 +65,6 @@ namespace BLL.Services
                 return Error($"Error updating user: {ex.Message}");
             }
         }
-
-        // Delete a user by ID
         public Service Delete(int id)
         {
             var user = _db.Users.FirstOrDefault(u => u.Id == id);
@@ -80,8 +84,6 @@ namespace BLL.Services
                 return Error($"Error deleting user: {ex.Message}");
             }
         }
-
-        // Query to get all users or filter as needed
         public IQueryable<UsersModel> Query()
         {
             return _db.Users.Select(u => new UsersModel { Record = u });
